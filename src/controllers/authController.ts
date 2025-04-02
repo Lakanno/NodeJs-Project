@@ -22,7 +22,7 @@ export const register = async (req: Request, res: Response, next: NextFunction):
       res.status(400).json({ message: "Username or Email already exists" });
     }
     console.error(error);
-    next(error); // Pass the error to the error-handling middleware
+    next(error);
   }
 };
 

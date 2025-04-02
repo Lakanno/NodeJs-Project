@@ -36,4 +36,8 @@ export class UserModel {
     const [rows] = await pool.execute(`SELECT * FROM users WHERE id = ?`, [id]);
     return (rows as never)[0];
   }
+  static async getAllUsers() {
+    const [rows] = await pool.query("SELECT id, first_name, last_name, email, username, is_active FROM users");
+    return rows;
+  }
 }
