@@ -1,11 +1,7 @@
-import express from "express";
-const app = express();
-const port = process.env.PORT ?? "9001";
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-  console.log("Response sent");
-});
+import app from "./app.js";
 
-app.listen(port, () => {
-  console.log(`სერვერი გაშვებულია პორტზე ${port}`);
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
