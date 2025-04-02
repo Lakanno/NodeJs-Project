@@ -10,3 +10,20 @@ export const getAllUsers = async (req: Request, res: Response, next: NextFunctio
     next(error);
   }
 };
+
+export const getUserById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    // მონაცემების წამოღება ID-ის მიხედვით
+    const user = await UserModel.getUserById(req.params.id);
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+    res.json(user);
+    return;
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
+};

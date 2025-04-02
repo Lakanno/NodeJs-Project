@@ -32,12 +32,13 @@ export class UserModel {
     return (rows as unknown[]).length ? (rows as unknown[])[0] : null;
   }
 
-  static async getUserById(id: number): Promise<unknown> {
-    const [rows] = await pool.execute(`SELECT * FROM users WHERE id = ?`, [id]);
-    return (rows as never)[0];
-  }
   static async getAllUsers() {
     const [rows] = await pool.query("SELECT id, first_name, last_name, email, username, is_active FROM users");
     return rows;
+  }
+
+  static async getUserById(id: string) {
+    const [rows] = await pool.execute("SELECT * FROM users WHERE id = ?", [id]);
+    return (rows as unknown[]).length ? (rows as unknown[])[0] : null;
   }
 }
