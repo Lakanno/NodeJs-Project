@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UserModel } from "../models/UserModel.js";
 import bcrypt from "bcryptjs";
-import { generateToken } from "../helpers/jwt.js"; // თქვენი jwt.ts ფაილიდან
+import { generateToken } from "../helpers/jwt.js";
 
 export const register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -56,29 +56,3 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     next(error);
   }
 };
-
-// export const login2 = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//   try {
-//     // უკვე შემოწმდა ვალიდაცია middleware-ით
-//     const { email, password } = req.body;
-//     // მომხმარებლის პოვნა MySQL-ში
-//     const user = (await UserModel.findUserByEmail(email)) as { id: string; password: string } | null;
-//     if (!user) {
-//       res.status(400).json({ message: "Invalid credentials" });
-//       return;
-//     }
-//     // პაროლის შედარება
-//     const isMatch = await bcrypt.compare(password, user.password);
-//     if (!isMatch) {
-//       res.status(400).json({ message: "Invalid credentials" });
-//       return;
-//     }
-//     // JWT ტოკენის გენერირება
-//     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, { expiresIn: "1h" });
-//     // ტოკენის დაბრუნება
-//     res.json({ token });
-//   } catch (error) {
-//     console.error(error);
-//     next(error);
-//   }
-// };

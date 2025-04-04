@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
-import { verifyToken } from "../helpers/jwt.js"; // ჩვენი JWT ფუნქციები
+import { verifyToken } from "../helpers/jwt.js";
 
 const authorizedUsers: Set<string> = new Set();
 
@@ -28,11 +28,9 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
   (req as Request & { user?: unknown }).user = decoded;
   next();
 };
-// Endpoint to get the list of authorized users
 export const getAuthorizedUsers = (req: Request, res: Response): void => {
   res.json({ authorizedUsers: Array.from(authorizedUsers) });
 };
-
 export const validate = (req: Request, res: Response, next: NextFunction): void => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

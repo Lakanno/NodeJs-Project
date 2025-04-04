@@ -22,7 +22,6 @@ export class UserModel {
     );
     return result;
   }
-
   static async findUserByEmail(email: string): Promise<unknown> {
     const [rows] = await pool.execute(`SELECT * FROM users WHERE email = ?`, [email]);
     return (rows as never)[0]; // პირველ ელემენტს ვაბრუნებთ, რადგან rows array-ია.
@@ -31,17 +30,14 @@ export class UserModel {
     const [rows] = await pool.execute("SELECT * FROM users WHERE username = ? OR email = ? LIMIT 1", [username, email]);
     return (rows as unknown[]).length ? (rows as unknown[])[0] : null;
   }
-
   static async getAllUsers() {
     const [rows] = await pool.query("SELECT id, first_name, last_name, email, username, is_active FROM users");
     return rows;
   }
-
   static async getUserById(id: string) {
     const [rows] = await pool.execute("SELECT * FROM users WHERE id = ?", [id]);
     return (rows as unknown[]).length ? (rows as unknown[])[0] : null;
   }
-
   static async findUserById(id: string) {
     try {
       const [user] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
