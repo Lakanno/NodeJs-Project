@@ -1,10 +1,9 @@
 import express from "express";
 import { getAllUsers, getUserById } from "../controllers/userController.js";
-
+import { authMiddleware } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
-// ყველა მომხმარებლის წამოღება
-router.get("/users", getAllUsers);
-router.get("/users/:id", getUserById);
+router.get("/users", authMiddleware, getAllUsers);
+router.get("/users/:id", authMiddleware, getUserById);
 
 export default router;

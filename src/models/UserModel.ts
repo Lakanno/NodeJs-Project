@@ -41,4 +41,17 @@ export class UserModel {
     const [rows] = await pool.execute("SELECT * FROM users WHERE id = ?", [id]);
     return (rows as unknown[]).length ? (rows as unknown[])[0] : null;
   }
+
+  static async findUserById(id: string) {
+    try {
+      const [user] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
+      if (!user) {
+        throw new Error("User not found");
+      }
+      return user;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error fetching user by ID");
+    }
+  }
 }
