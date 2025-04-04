@@ -5,8 +5,6 @@ dotenv.config();
 
 const SECRET_KEY = process.env.JWT_SECRET || "default-secret-key";
 
-console.log("SECRET_KEY", SECRET_KEY);
-
 function encodeBase64(str: string): string {
   return Buffer.from(str, "utf-8").toString("base64url");
 }
