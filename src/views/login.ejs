@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/your_kit_id.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  
+</head>
+  <body class="container">
+    <div class="container">
+        <h4 class="center-align">Login</h4>
+      
+        <form action="/login" method="POST">
+          <div class="input-field">
+            <input type="email" name="email" id="email" required>
+            <label for="email">Email</label>
+          </div>
+      
+          <div class="input-field">
+            <input type="password" name="password" id="password" required>
+            <label for="password">Password</label>
+          </div>
+      
+          <button type="submit" class="btn waves-effect waves-light">Login</button>
+        </form>
+      
+        <div class="row center-align" style="margin-top: 20px;">
+          <a href="/auth/facebook" class="btn blue darken-4 waves-effect waves-light" style="width: 100%;">
+            <i class="fab fa-facebook left"></i> Login with Facebook
+          </a>
+        </div>
+      
+        <div class="row center-align">
+          <p>Don't have an account? <a href="/register">Register here</a></p>
+        </div>
+      </div>
+      
+  </body>
+</html>
