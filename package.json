@@ -36,6 +36,7 @@
     "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.13.14",
+    "@types/passport-facebook": "^3.0.3",
     "eslint": "^9.23.0",
     "eslint-plugin-perfectionist": "^4.10.1",
     "husky": "^9.1.7",
@@ -52,6 +53,8 @@
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
-    "mysql2": "^3.14.0"
+    "mysql2": "^3.14.0",
+    "passport": "^0.7.0",
+    "passport-facebook": "^3.0.0"
   }
 }
