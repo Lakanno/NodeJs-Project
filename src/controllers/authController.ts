@@ -48,9 +48,13 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     // JWT ტოკენის გენერირება ჩვენი `generateToken` ფუნქციით
     const token = generateToken({ id: user.id });
     console.log("🔍 🔍 🔍 token", token);
+    // გადამისამართება `home.ejs`-ზე ტოკენით
+    // res.render("home", { name: user.id, token });
 
     // ტოკენის დაბრუნება
-    res.json({ token });
+    // res.json({ token });
+    // გადამისამართება `/home` როუტზე
+    res.redirect(`/home`);
   } catch (error) {
     console.error(error);
     next(error);

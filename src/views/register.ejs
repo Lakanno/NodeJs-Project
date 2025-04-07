@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-</head>
-<body class="container">
-    <h3 class="center-align">Register</h3>
-    <form method="POST" action="/register">
-      <div class="input-field">
-        <input id="name" type="text" name="name" required>
-        <label for="name">Name</label>
-      </div>
-      <div class="input-field">
-        <input id="email" type="email" name="email" required>
-        <label for="email">Email</label>
-      </div>
-      <div class="input-field">
-        <input id="password" type="password" name="password" required>
-        <label for="password">Password</label>
-      </div>
-      <button class="btn waves-effect waves-light" type="submit">Register</button>
-    </form>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
+  </head>
+  <body class="container">
+    <div class="container">
+      <h3 class="center-align">Register</h3>
+      <form action="/api/auth/register" method="POST">
+        <div class="input-field">
+          <input id="first_name" type="text" name="first_name" required />
+          <label for="first_name" class="active">First Name</label>
+        </div>
+        <div class="input-field">
+          <input id="last_name" type="text" name="last_name" required />
+          <label for="last_name" class="active">Last Name</label>
+        </div>
+        <div class="input-field">
+          <input id="email" type="email" name="email" required />
+          <label for="email" class="active">Email</label>
+        </div>
+        <div class="input-field">
+          <input id="username" type="text" name="username" required />
+          <label for="username" class="active">User Name</label>
+        </div>
+        <div class="input-field">
+          <input id="password" type="password" name="password" required />
+          <label for="password" class="active">Password</label>
+        </div>
+        <button type="submit" class="btn waves-effect waves-light">Register</button>
+      </form>
+    </div>
   </body>
-  
 </html>

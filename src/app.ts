@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import homeRoutes from "./routes/homeRoutes.js";
+
 import path from "path";
 import { fileURLToPath } from "url";
 import facebookAuthRoutes from "./routes/facebookAuthRoutes.js";
@@ -37,5 +39,6 @@ app.get("/", (req, res) => {
 app.use("/api", userRoutes);
 
 app.use(facebookAuthRoutes);
+app.use(homeRoutes);
 
 export default app;
