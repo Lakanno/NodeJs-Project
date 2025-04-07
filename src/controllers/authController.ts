@@ -54,9 +54,21 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     // ტოკენის დაბრუნება
     // res.json({ token });
     // გადამისამართება `/home` როუტზე
-    res.redirect(`/home`);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // production-ში true უნდა იყოს
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    res.redirect("/home");
   } catch (error) {
     console.error(error);
     next(error);
   }
+};
+
+export const logout = (req: Request, res: Response) => {
+  console.log("Logging out...");
+  res.clearCookie("token");
+  res.redirect("/login");
 };

@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Home</title>
-</head>
-<body>
-  <h1>Hello <%= name %>!</h1>
-</body>
+  <head>
+    <title>Home</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/your_kit_id.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Hello <%= name %>!</h1>
+    <form action="/api/auth/logout" method="GET">
+      <button class="btn waves-effect waves-light">Logout</button>
+    </form>
+  </body>
 </html>

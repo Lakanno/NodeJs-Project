@@ -39,3 +39,16 @@ export const validate = (req: Request, res: Response, next: NextFunction): void 
   }
   next();
 };
+
+export const ensureAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+  const token = (req.query.token as string) || req.cookies?.token || ""; // თუ cookies იყენებ, შეგიძლია იქიდანაც ამოიღო
+
+  if (!token) return res.redirect("/login");
+
+  const decoded = verifyToken(token);
+  if (!decoded) return res.redirect("/login");
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (req as any).user = decoded;
+  next();
+};
