@@ -3,7 +3,12 @@ import { validationResult } from "express-validator";
 import { verifyToken } from "../helpers/jwt.js";
 
 const authorizedUsers: Set<string> = new Set();
-
+// Extended Request ტიპი
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: { id: string; email: string }; // მე მივიჩნევთ, რომ ეს არის მნიშვნელობები
+  }
+}
 export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   // ტოკენის აღება ჰედერიდან
   console.log("🔍 🔍 🔍 req.headers", req.headers);
@@ -25,7 +30,12 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
 
   authorizedUsers.add(decoded.id as string);
 
-  (req as Request & { user?: unknown }).user = decoded;
+  if (decoded && typeof decoded === "object" && "id" in decoded && "email" in decoded) {
+    (req as Request).user = { id: decoded.id as string, email: decoded.email as string };
+  } else {
+    res.status(401).json({ message: "Invalid or expired token" });
+    return;
+  }
   next();
 };
 export const getAuthorizedUsers = (req: Request, res: Response): void => {
