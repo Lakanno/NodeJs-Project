@@ -8,6 +8,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import facebookAuthRoutes from "./routes/facebookAuthRoutes.js";
 import { redirectIfAuthenticated } from "./middleware/redirectIfAuthenticated.js";
+import { verifyToken } from "./helpers/jwt.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -38,8 +39,24 @@ app.get("/", (req, res) => {
 
 // მომხმარებლების როუტები
 app.use("/api", userRoutes);
-
 app.use(facebookAuthRoutes);
 app.use(homeRoutes);
+// ბოლო როუტი: თუ არაფერი დაემთხვა ზემოთ
+app.use("*", (req, res) => {
+  const token = req.cookies?.token || req.headers["authorization"]?.split(" ")[1];
+
+  if (!token) {
+    return res.redirect("/login");
+  }
+
+  const decoded = verifyToken(token);
+
+  if (!decoded || typeof decoded !== "object" || !("id" in decoded)) {
+    return res.redirect("/login");
+  }
+
+  // მომხმარებელი ავტორიზებულია
+  res.redirect("/home");
+});
 
 export default app;
