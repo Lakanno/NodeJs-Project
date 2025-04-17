@@ -6,38 +6,34 @@ const authorizedUsers: Set<string> = new Set();
 // Extended Request ტიპი
 declare module "express-serve-static-core" {
   interface Request {
-    user?: { id: string; email: string }; // მე მივიჩნევთ, რომ ეს არის მნიშვნელობები
+    user?: { id: string }; // მე მივიჩნევთ, რომ ეს არის მნიშვნელობები
   }
 }
 export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   // ტოკენის აღება ჰედერიდან
-  console.log("🔍 🔍 🔍 req.headers", req.headers);
+  console.log("🔍 Headers:", req.headers);
   const token = req.headers["authorization"]?.split(" ")[1]; // "Bearer <token>"
-
   if (!token) {
+    console.error("❌ Token is missing");
     res.status(401).json({ message: "Token is required" });
     return;
   }
-
   // ტოკენის ვალიდაცია
   const decoded = verifyToken(token);
-  console.log("🔍 🔍 🔍 decoded", decoded);
-
+  console.log("🔍 Decoded Token:", decoded);
   if (!decoded || typeof decoded !== "object" || !("id" in decoded)) {
+    console.error("❌ Invalid or expired token");
     res.status(401).json({ message: "Invalid or expired token" });
     return;
   }
 
   authorizedUsers.add(decoded.id as string);
 
-  if (decoded && typeof decoded === "object" && "id" in decoded && "email" in decoded) {
-    (req as Request).user = { id: decoded.id as string, email: decoded.email as string };
-  } else {
-    res.status(401).json({ message: "Invalid or expired token" });
-    return;
-  }
+  (req as Request & { user?: { id: string } }).user = { id: decoded.id as string };
+
   next();
 };
+
 export const getAuthorizedUsers = (req: Request, res: Response): void => {
   res.json({ authorizedUsers: Array.from(authorizedUsers) });
 };

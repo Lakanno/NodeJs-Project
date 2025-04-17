@@ -20,18 +20,18 @@ function generateSignature(header: string, body: string, secretKey: string): str
 }
 
 export function generateToken(payload: object): string {
-  console.log("✅ generateToken - Received Payload:", payload);
+  // console.log("✅ generateToken - Received Payload:", payload);
   const validPayload = payload && Object.keys(payload).length > 0 ? payload : { error: "Invalid Payload" };
   const header = encodeBase64(JSON.stringify({ alg: "HS256", typ: "JWT" }));
   const body = encodeBase64(JSON.stringify(payload));
 
   console.log("📝 JSON Payload Before Encoding:", JSON.stringify(validPayload));
-  console.log("🔍 Encoded Body:", body);
+  // console.log("🔍 Encoded Body:", body);
 
   const signature = generateSignature(header, body, SECRET_KEY);
-  console.log("generateToken - Signature", signature);
-  console.log("generateToken - header", header);
-  console.log("generateToken - body", body);
+  // console.log("generateToken - Signature", signature);
+  // console.log("generateToken - header", header);
+  // console.log("generateToken - body", body);
   // ტოკენის დაბრუნება: [header].[body].[signature]
   return `${header}.${body}.${signature}`;
 }
@@ -45,11 +45,6 @@ export function verifyToken(token: string): object | null {
   if (parts.length !== 3) return null; // ტოკენის ფორმატის შემოწმება
   const [header, body, signature] = parts;
   const decodedHeader = JSON.parse(decodeBase64(header));
-
-  console.log("🔍 Decoded Header:", decodeBase64(header));
-  console.log("decodedHeader", decodedHeader);
-
-  console.log("🔍 Decoded Body:", decodeBase64(body));
 
   // ვამოწმებთ, რომ ჰედერში მითითებული ალგორითმი იყოს "HS256"
   if (decodedHeader.alg !== "HS256") {
